@@ -1,6 +1,10 @@
 package cmd
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"fmt"
+	"github.com/BaianorASR/solid-go/config"
+	"github.com/gofiber/fiber/v2"
+)
 
 func Server() {
 	app := fiber.New(fiber.Config{
@@ -13,7 +17,9 @@ func Server() {
 		return c.SendString("BAIANO")
 	})
 
-	err := app.Listen(":3000")
+	env := config.GetEnv()
+
+	err := app.Listen(fmt.Sprintf(":%d", env.Port))
 	if err != nil {
 		panic(err)
 	}

@@ -1,7 +1,11 @@
 package main
 
-import "solid-go/cmd"
+import (
+	"github.com/BaianorASR/solid-go/cmd"
+	"github.com/BaianorASR/solid-go/config"
+)
 
 func main() {
+	config.LoadEnv()
 	cmd.Server()
 }
