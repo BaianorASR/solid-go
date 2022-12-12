@@ -2,13 +2,16 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/BaianorASR/solid-go/config"
+
+	"github.com/BaianorASR/solid-go/config/environment"
 	"github.com/gofiber/fiber/v2"
 )
 
 func Server() {
+	env := config.GetEnv()
+
 	app := fiber.New(fiber.Config{
-		CaseSensitive: true,
+		CaseSensitive: env.CaseSensitiveURL,
 		ServerHeader:  "Solid Go",
 		AppName:       "Test Solid GO App v1",
 	})
@@ -16,8 +19,6 @@ func Server() {
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("BAIANO")
 	})
-
-	env := config.GetEnv()
 
 	err := app.Listen(fmt.Sprintf(":%d", env.Port))
 	if err != nil {
